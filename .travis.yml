@@ -1,0 +1,21 @@
+language: python
+sudo: python
+python: 3.5
+env:
+  - TOX_ENV=py34
+  - TOX_ENV=py35
+  - TOX_ENV=py36
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env:
+      - TOX_ENV=pylint
+      - TOX_ENV=pep8
+install:
+  - apt-get install python3.4 python3.5 python3.6 python3-gi gir1.2-webkit-3.0
+  - pip install --upgrade pip setuptools tox virtualenv
+script:
+  - tox -v -v -e $TOX_ENV
+after_failure:
+  - for X in .tox/$TOX_ENV/log/*; do echo "$X\n"; cat "$X"; echo "\n\n"; done
+  - echo "pip.log\n"; cat $HOME/.pip/pip.log
