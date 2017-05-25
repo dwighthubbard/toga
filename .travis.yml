@@ -15,7 +15,7 @@ install:
   - apt-get install python3.4 python3.5 python3.6 python3-gi gir1.2-webkit-3.0
   - pip install --upgrade pip setuptools tox virtualenv
 script:
-  - tox -v -v -e $TOX_ENV
+  - tox -v -e $TOX_ENV
 after_failure:
   - for X in .tox/$TOX_ENV/log/*; do echo "$X\n"; cat "$X"; echo "\n\n"; done
   - echo "pip.log\n"; cat $HOME/.pip/pip.log
